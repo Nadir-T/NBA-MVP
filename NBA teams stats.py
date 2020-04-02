@@ -1,8 +1,18 @@
 import pandas as pd
+
 from nba_api.stats.endpoints import teamyearbyyearstats
 from nba_api.stats.static import teams
 
+pd.set_option('mode.chained_assignment', None)
+
 seasons_stats = pd.read_csv('/Users/Coni/Desktop/ENSAE/1A/Projet informatique/Data/seasons_stats.csv')
+seasons_stats.dropna(subset = ['Player'], inplace = True)
+
+def change_type(year):   #Le type était merdique, maintenant c'est un entier
+    return int(year)
+seasons_stats['Year'] = seasons_stats['Year'].apply(change_type)
+
+
 
 def liste_teams():
     liste_id = []
@@ -18,10 +28,10 @@ l = liste_teams()
 
 
 def fusion():
-    buf =  teamyearbyyearstats.TeamYearByYearStats(team_id=l[0])
+    buf = teamyearbyyearstats.TeamYearByYearStats(team_id=l[0])
     teams_stats = buf.get_data_frames()[0]
     for i in l[1::]:
-        buf =  teamyearbyyearstats.TeamYearByYearStats(team_id=i)
+        buf = teamyearbyyearstats.TeamYearByYearStats(team_id=i)
         df2 = buf.get_data_frames()[0]
         teams_stats = pd.concat([teams_stats, df2],ignore_index = True)
     return teams_stats
@@ -42,8 +52,7 @@ seasons_stats['TEAM_WINS'] = 0
 seasons_stats['TEAM_LOSSES'] = 0
 seasons_stats['TEAM_WIN_PCT'] = 0
 seasons_stats['TEAM_CONF_RANK'] = 0
-seasons_stats['TEAM_PO_WINS'] = 0 
-seasons_stats['TEAM_PO_LOSSES'] = 0 
+
 
 
 liste = seasons_stats.Tm.unique()
@@ -81,23 +90,44 @@ def merge():
             df.at[i, 'TEAM_LOSSES'] = x.iloc[0]['LOSSES']
             df.at[i, 'TEAM_WIN_PCT'] = x.iloc[0]['WIN_PCT']
             df.at[i, 'TEAM_CONF_RANK'] = x.iloc[0]['CONF_RANK']
-            df.at[i, 'TEAM_PO_WINS'] = x.iloc[0]['PO_WINS']
-            df.at[i, 'TEAM_PO_LOSSES'] = x.iloc[0]['PO_LOSSES']
 
 merge()
 df2 = df[(df['TEAM_WINS']==0) & (df['Tm'] != 'TOT')]
 
-df['TEAM_WIN_PCT'] = df['TEAM_WINS'] / (df['TEAM_LOSSES'] + df['TEAM_WINS'])
-    
+
+
+
+
+
+
+def moy_pond(l_coef,l):
+    res=0
+    for i in range(len(l_coef)):
+        res += l_coef[i] * l[i]
+    return res/sum(l_coef)
         
+       
+def gere_tot():
+    for i, row in df.iterrows():
+        if row['Tm']=='TOT':
+            buf = df[(df['Player']==row['Player']) & (df['Year']==row['Year']) & (df['Tm'] != 'TOT')]
+            l_g = []
+            l_w = []
+            l_l = []
+            l_r = []
+            for j, row2 in buf.iterrows():
+                l_g.append(row2['G'])
+                l_w.append(row2['TEAM_WINS'])
+                l_l.append(row2['TEAM_LOSSES'])
+                l_r.append(row2['TEAM_CONF_RANK'])
+            df.at[i, 'TEAM_WINS'] = moy_pond(l_g,l_w)
+            df.at[i, 'TEAM_LOSSES'] = moy_pond(l_g,l_l)
+            df.at[i, 'TEAM_CONF_RANK'] = moy_pond(l_g,l_r)
+
+gere_tot()
+
+df['TEAM_WIN_PCT'] = df['TEAM_WINS'] / (df['TEAM_LOSSES'] + df['TEAM_WINS'])
+
+ 
+
 df.to_csv('/Users/Coni/Desktop/ENSAE/1A/Projet informatique/Data/df.csv', index=False)
-
-
-
-
-
-
-
-
-
-
