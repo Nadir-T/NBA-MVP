@@ -1,8 +1,10 @@
 import pandas as pd
 import numpy as np
 import warnings
+
 from nba_api.stats.endpoints import teamyearbyyearstats
 from nba_api.stats.static import teams
+
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 buf =  teamyearbyyearstats.TeamYearByYearStats(team_id=buf4)
