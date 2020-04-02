@@ -142,3 +142,135 @@ add_score('Tony Parker',2011,0.002)
 add_score('Chris Paul',2011,0.002)
 extract_mvp_y_by_y(2011)
 mvp_2011 = pd.read_csv('/Users/Coni/Desktop/ENSAE/1A/Projet informatique/Data/mvp2011.csv')
+
+
+## 2000 - 2001 ### 
+
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+
+
+## 1999 - 2000 ### 
+
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+
+## 1998 - 1999 ### 
+
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+add_score(')       
+add_score(')
+          
+## 1997 - 1998 ### 
+
+add_score('Michael Jordan',1998,0.934)       
+add_score('Karl Malone',1998,0.726)
+add_score('Gary Payton',1998,0.372)       
+add_score('Shaquille ONeal',1998,0.268)
+add_score('Tim Duncan',1998,0.128)       
+add_score('Tim Hardaway',1998,0.061)
+add_score('David Robinson',1998,0.031)       
+add_score('Vin Baker',1998,0.021)
+add_score('Grant Hill',1998,0.020)       
+add_score('Scottie Pippen',1998,0.012)
+add_score('Glen Rice',1998,0.006)       
+add_score('Antoine Walker',1998,0.005)
+add_score('Jason Kidd',1998,0.004)       
+add_score('John Stockton',1998,0.004)
+add_score('Mitch Richmond',1998,0.003)       
+add_score('Reggie Miller',1998,0.002)
+add_score('Rik Smits',1998,0.002)
+add_score('Michael Finley',1998,0.001)
+add_score('Rod Strickland',1998,0.001)
+          
+## 1996 - 1997 ### 
+
+add_score('Karl Malone', 1997,0.857)       
+add_score('Michael Jordan',1997,0.832)
+add_score('Grant Hill',1997,0.327)
+add_score('Tim Hardaway',1997,0.207)       
+add_score('Glen Rice',1997,0.117)
+add_score('Gary Payton',1997,0.091)       
+add_score('Hakeem Olajuwon',1997,0.083)
+add_score('Patrick Ewing',1997,0.050)       
+add_score('Anthony Mason',1997,0.006)
+add_score('Shaquille ONeal',1997,0.006)       
+add_score('Scottie Pippen',1997,0.005)
+add_score('Alonzo Mourning',1997,0.004)       
+add_score('Dikembe Mutombo',1997,0.003)
+add_score('Mitch Richmond',1997,0.003)       
+add_score('John Stockton',1997,0.003)
+add_score('Charles Barkley',1997,0.002)       
+add_score('Tom Gugliotta',1997,0.001)       
+add_score('Allen Iverson',1997,0.001)
+add_score('Kevin Johnson',1997,0.001)
+add_score('Steve Smith',1997,0.001)          
+          
+## 1995 - 1996 ### 
+
+add_score('Michael Jordan', 1996 ,0.986)       
+add_score('David Robinson', 1996 ,0.508)
+add_score('Anfernee Hardaway', 1996 ,0.319)       
+add_score('Hakeem Olajuwon', 1996 ,0.211)
+add_score('Scottie Pippen', 1996 ,0.200)       
+add_score('Gary Payton', 1996 ,0.087)
+add_score('Karl Malone', 1996 ,0.075)       
+add_score('Shawn Kemp', 1996 ,0.065)
+add_score('Grant Hill', 1996 ,0.056)       
+add_score('Shaquille ONeal', 1996 ,0.056)
+add_score('John Stockton',1996,0.011)       
+add_score('Charles Barkley',1996,0.007)
+add_score('Magic Johnson',1996,0.007)       
+add_score('Alonzo Mourning',1996,0.005)
+add_score('Dennis Rodman',1996,0.004)       
+add_score('Terrell Brandon',1996,0.003)
+add_score('Mitch Richmond',1996,0.003)
+
+
+
+
+
+
+
+
