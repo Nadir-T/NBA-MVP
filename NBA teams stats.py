@@ -13,7 +13,6 @@ def change_type(year):   #Le type était merdique, maintenant c'est un entier
 seasons_stats['Year'] = seasons_stats['Year'].apply(change_type)
 
 
-
 def liste_teams():
     liste_id = []
     liste_dic=[]
@@ -26,7 +25,6 @@ def liste_teams():
 l = liste_teams()
 
 
-
 def fusion():
     buf = teamyearbyyearstats.TeamYearByYearStats(team_id=l[0])
     teams_stats = buf.get_data_frames()[0]
@@ -37,7 +35,6 @@ def fusion():
     return teams_stats
 
 teams_stats = fusion()
-
 
  
 def change_year(year):
@@ -52,7 +49,6 @@ seasons_stats['TEAM_WINS'] = 0
 seasons_stats['TEAM_LOSSES'] = 0
 seasons_stats['TEAM_WIN_PCT'] = 0
 seasons_stats['TEAM_CONF_RANK'] = 0
-
 
 
 liste = seasons_stats.Tm.unique()
@@ -92,12 +88,6 @@ def merge():
             df.at[i, 'TEAM_CONF_RANK'] = x.iloc[0]['CONF_RANK']
 
 merge()
-df2 = df[(df['TEAM_WINS']==0) & (df['Tm'] != 'TOT')]
-
-
-
-
-
 
 
 def moy_pond(l_coef,l):
