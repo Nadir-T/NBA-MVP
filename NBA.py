@@ -383,7 +383,7 @@ df['Score MVP'].apply(lambda x: x**(0.2))
          
 #On choisit des feature pertinents 
           
-df = df['Player','G','GS','MP','PER','TS%','PTS','BLK','TOV','STL','AST','TRB','FTA','FT%','eFG%','2P%','3P%','FG%','FG','VORP','BPM','WS','OWS','DWS','WS','WS/48']     
+df = df['G','GS','MP','PER','TS%','PTS','BLK','TOV','STL','AST','TRB','FTA','FT%','eFG%','2P%','3P%','FG%','FG','VORP','BPM','WS','OWS','DWS','WS','WS/48']     
 
           
           
