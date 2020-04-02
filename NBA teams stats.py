@@ -18,10 +18,10 @@ l = liste_teams()
 
 
 def fusion():
-    buf = buf =  teamyearbyyearstats.TeamYearByYearStats(team_id=l[0])
+    buf =  teamyearbyyearstats.TeamYearByYearStats(team_id=l[0])
     teams_stats = buf.get_data_frames()[0]
     for i in l[1::]:
-        buf = buf =  teamyearbyyearstats.TeamYearByYearStats(team_id=i)
+        buf =  teamyearbyyearstats.TeamYearByYearStats(team_id=i)
         df2 = buf.get_data_frames()[0]
         teams_stats = pd.concat([teams_stats, df2],ignore_index = True)
     return teams_stats
