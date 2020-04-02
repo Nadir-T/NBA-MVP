@@ -375,9 +375,22 @@ add_score('Isiah Thomas',1990,0.001)
 extract_mvp_y_by_y(1990)
 mvp_1990 = pd.read_csv('/Users/Coni/Desktop/ENSAE/1A/Projet informatique/Data/mvp1990.csv')
 
+          
+          
+#On applique à tous les scores MVP une fonction de bond 
+ 
+df['Score MVP'].apply(lambda x: x**(0.2))
+         
+#On choisit des feature pertinents 
+          
+df = df['Player','G','GS','MP','PER','TS%','PTS','BLK','TOV','STL','AST','TRB','FTA','FT%','eFG%','2P%','3P%','FG%','FG','VORP','BPM','WS','OWS','DWS','WS','WS/48']     
 
-
-
-
-
-
+          
+          
+          
+          
+          
+          
+          
+          
+          
