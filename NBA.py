@@ -21,9 +21,11 @@ def f_totale(seasons_stats):
     seasons_stats["Player"] =  seasons_stats["Player"].apply(delete_star)
     seasons_stats = add_all_scores(seasons_stats)
     df = f_totale_team(seasons_stats, teams_stats)
+    stats_clean = df
     df['score MVP'] = df['score MVP'].apply(lambda x: x**(0.2))
     df = df[['G','GS','MP','PER','TS%','PTS','BLK','TOV','STL','AST','TRB','FTA','FT%','eFG%','2P%','3P%','FG%','FG','VORP','BPM','WS','OWS','DWS','WS','WS/48', 'score MVP', 'TEAM_WINS', 'TEAM_LOSSES', 'TEAM_WIN_PCT', 'TEAM_CONF_RANK']]  
     df.to_csv(doss + 'df.csv', index =False)
+    stats_clean.to_csv(doss + 'stats_clean.csv', index = False)
     return df
     
 
