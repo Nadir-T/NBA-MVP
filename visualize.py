@@ -53,4 +53,13 @@ ax.scatter3D(l01, l02, l03, 'bo')
 ax.scatter3D(l11, l12, l13, 'ro')
 
 
+corr_matrix = stats_clean.corr()
+corr_matrix['score MVP'].sort_values()
+
+corr_matrix = stats_clean.corr(method = 'kendall')
+corr_matrix['score MVP'].sort_values()
+
+corr_matrix = stats_clean.corr(method = 'spearman')   # Le mieux dans notre cas
+corr_matrix['score MVP'].sort_values()
+
 
