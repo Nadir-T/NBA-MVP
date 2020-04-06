@@ -16,7 +16,7 @@ def f_totale_team(seasons_stats, teams_stats):
     df = seasons_stats[seasons_stats['Year']>1973]
     df = merge(df, teams_stats)
     df = gere_tot(df)
-    df = delete_tot(df)
+    df = delete_tot(df) ########################################################### Supprime quand t'as vu, il y a aussi un truc en bas
     df['TEAM_WIN_PCT'] = df['TEAM_WINS'] / (df['TEAM_LOSSES'] + df['TEAM_WINS'])
     return df
     
@@ -114,7 +114,7 @@ def gere_tot(df):
 
  
 
-def delete_tot(df):
+def delete_tot(df):         ########################################################################
     buf = df[df['Tm']=='TOT']
     for i, row in buf.iterrows():
         year = int(row['Year'])
