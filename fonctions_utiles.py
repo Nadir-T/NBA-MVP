@@ -27,4 +27,22 @@ def coupe(df):
     test = pd.concat([mvp_test, non_mvp_test], ignore_index=True)
     train = pd.concat([mvp_train, non_mvp_train], ignore_index=True)
     return test, train
-    
+
+#Normalisation par année
+
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler() 
+
+def normalize_by_year(df):
+    df_scaled = pd.DataFrame(columns = df.columns)
+    A = df.drop(['classé MVP','score MVP', 'Year'], axis = 1) #on enlève les colonnes qu'on ne normalise pas
+    for k in range(1982, 2018):
+        B = pd.DataFrame(scaler.fit_transform(A[df['Year']==k]), index = A[df['Year']==k].index, columns = A.columns)
+        B['Year'] = k   #On rajoute les colonnes enlevés
+        C = df[df['Year'] == k]
+        B['classé MVP'] = C['classé MVP']
+        B['score MVP'] = C['score MVP']
+        B = B[df.columns]   #On remet les colonnes dans l'ordre
+        df_scaled = B.append(df_scaled)
+    return df_scaled
