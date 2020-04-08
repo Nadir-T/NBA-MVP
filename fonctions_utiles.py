@@ -28,6 +28,13 @@ def coupe(df):
     train = pd.concat([mvp_train, non_mvp_train], ignore_index=True)
     return test, train
 
+def coupe_by_year(df):
+    l = 1982 + np.random.choice(36, 1, replace=False)
+    test = df[df['Year'].isin(l)]
+    train = df[~df['Year'].isin(l)]
+    return test, train
+
+
 #Normalisation par année
 
 from sklearn.preprocessing import StandardScaler
