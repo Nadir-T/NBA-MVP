@@ -128,4 +128,7 @@ def add_noise_mvp(train, Y_train):    # Y_train doit être une series si c'est d
         train_mvp_noise = train_mvp + noise
         res_noise = pd.concat([res_noise, train_mvp_noise])
         res_Y = pd.concat([res_Y, Y_train_mvp])    
+    res_Y = res_Y['score MVP']
     return res_noise, res_Y
+
+
