@@ -109,3 +109,23 @@ def linear_regression(X, y, alpha, num_iters):
     h = hypothesis(theta, X, n)
     theta, cost = BGD(theta,alpha,num_iters,h,X,y,n)
     return theta, cost
+
+
+
+
+def add_noise_mvp(train, Y_train):    # Y_train doit être une series si c'est déjà un DataFrame, enlever la première ligne
+    Y_train = pd.DataFrame(Y_train)
+    train['score MVP']=Y_train
+    train_mvp = train[train['score MVP']>0]
+    Y_train_mvp = Y_train[Y_train['score MVP']>0]
+    train_mvp = train_mvp.drop(['score MVP'], axis = 1)
+    mu, sigma = 0, 0.01 
+    train = train.drop(['score MVP'], axis = 1)
+    res_noise = train
+    res_Y = Y_train
+    for i in range(9):
+        noise = np.random.normal(mu, sigma, train_mvp.shape)
+        train_mvp_noise = train_mvp + noise
+        res_noise = pd.concat([res_noise, train_mvp_noise])
+        res_Y = pd.concat([res_Y, Y_train_mvp])    
+    return res_noise, res_Y
