@@ -132,3 +132,27 @@ def add_noise_mvp(train, Y_train):    # Y_train doit être une series si c'est d
     return res_noise, res_Y
 
 
+
+
+
+def assign_rank(l):
+    l_rank = []
+    for i in l:
+        buf = 1
+        for j in l:
+            if j>i:
+                buf+=1
+        l_rank.append([i,buf])
+    return l_rank
+
+def score_rank(y,y_p):
+    y_rank = assign_rank(y)
+    y_p_rank = assign_rank(y_p)
+    score = 0
+    compteur = 0
+    for i in range(len(y_rank)):
+        if y_rank[i][0] != 0:
+            score += (1/y_rank[i][1]) * (y_rank[i][1]-y_p_rank[i][1])**2
+            compteur +=1
+    return score/compteur
+
