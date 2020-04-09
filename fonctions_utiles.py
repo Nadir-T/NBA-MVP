@@ -1,4 +1,4 @@
-import pandas as pd
+pimport pandas as pd
 import numpy as np
 from sklearn.utils import shuffle
 
@@ -130,5 +130,5 @@ def score_rank(y,y_p):
         if y_rank[i][0] != 0:
             score += (1/y_rank[i][1]) * (y_rank[i][1]-y_p_rank[i][1])**2       # La pondération permet de donner plus d'importance à la bonne estimation des premiers 
             pond += 1/y_rank[i][1]
-    return score/compteur
+    return score/pond
 
