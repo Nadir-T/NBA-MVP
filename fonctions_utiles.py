@@ -125,10 +125,10 @@ def score_rank(y,y_p):
     y_rank = assign_rank(y)
     y_p_rank = assign_rank(y_p)
     score = 0
-    compteur = 0
+    pond = 0
     for i in range(len(y_rank)):
         if y_rank[i][0] != 0:
             score += (1/y_rank[i][1]) * (y_rank[i][1]-y_p_rank[i][1])**2
-            compteur +=1
+            pond += 1/y_rank[i][1]
     return score/compteur
 
