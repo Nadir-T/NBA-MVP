@@ -121,16 +121,23 @@ def assign_rank(l):
         l_rank.append([i,buf])
     return l_rank
 
-def score_rank(y,y_p):
-    y_rank = assign_rank(y)
-    y_p_rank = assign_rank(y_p)
+def score_rank(y_rank,y_p_rank):
     score = 0
     pond = 0
+    premier = 0
+    podium = 0
     for i in range(len(y_rank)):
         if y_rank[i][0] != 0:
-            score += (1/y_rank[i][1]) * (y_rank[i][1]-y_p_rank[i][1])**2       # La pondération permet de donner plus d'importance à la bonne estimation des premiers 
-            pond += 1/y_rank[i][1]
-    return score/pond
+            score += (1/y_rank[i][1]) * abs(y_rank[i][1]-y_p_rank[i][1])
+            pond += (1/y_rank[i][1])
+            if y_rank[i][1] == 1:
+                premier += (y_p_rank[i][1] == 1) * 1
+                podium += (y_p_rank[i][1] == 1) * 1
+            elif y_rank[i][1] == 2:
+                podium += (y_p_rank[i][1] == 2) * 1
+            elif y_rank[i][1] == 3:
+                podium += (y_p_rank[i][1] == 3) * 1
+    return score/pond, premier, (podium==3)*1
 
 
 def year_cross_validation_score(df, alpha, num_iters):
