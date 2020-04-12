@@ -132,3 +132,24 @@ def score_rank(y,y_p):
             pond += 1/y_rank[i][1]
     return score/pond
 
+
+def year_cross_validation_score(df, alpha, num_iters):
+    l_score = []
+    df_scal = fonctions_utiles.normalize_by_year(df)
+    df_scaled = df_scal.dropna(subset=['PER'])
+    for i in range(1982, 2018):
+        test = df_scaled[df_scaled['Year']==i]
+        train = df_scaled[df_scaled['Year']!=i]
+        Y_train = train['score MVP']
+        Y_test = test['score MVP']
+        train_imp = train[['PTS','VORP','TOV','WS','TEAM_CONF_RANK']]
+        test_imp = test[['PTS','VORP','TOV','WS','TEAM_CONF_RANK']]
+        train_noise, Y_train_noise = fonctions_utiles.add_noise_mvp(train_imp, Y_train)
+        train_imp = train[['PTS','VORP','TOV','WS','TEAM_CONF_RANK']]
+        resu = predict(train_noise, Y_train_noise, alpha, num_iters, test_imp, Y_test)
+        y_pred = resu['pred'].tolist()
+        y = resu['score'].tolist()
+        score_rank = fonctions_utiles.score_rank(y, y_pred)
+        l_score.append(score_rank)
+    return l_score, mean(l_score)
+
