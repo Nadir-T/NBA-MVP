@@ -16,13 +16,9 @@ df = df.set_index(['Player'])
 df_scaled = fonctions_utiles.normalize_by_year(df)
 df_scaled = df_scaled.dropna(subset=['PER'])
 
-#names = ['Linear regression', 'Linear regression with noise', 'Classification and linear regression']
+names = ['Linear regression', 'Linear regression with noise', 'Classification and linear regression']
 
-#models = [reg_lin_year, reg_lin_noise_year, class_reg_year]
-
-names = ['Linear regression with noise']
-
-models = [reg_lin_year_noise]
+models = [reg_lin_year, reg_lin_noise_year, class_reg_year]
 
 
 def compare_models(alpha, num_iters):
