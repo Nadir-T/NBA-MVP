@@ -9,7 +9,7 @@ df = pd.read_csv(doss + 'df.csv')
 
 def coupe(df):
     """
-        Permet de diviser le dataset en deux datasets avec une proportion égale de MVP dans chaque dataset.
+        Divise le dataset en deux datasets avec une proportion égale de MVP dans chaque dataset.
     """
     prop = len(df[df['score MVP']>0])/len(df)
     mvp =  df[df['score MVP']>0]
@@ -27,7 +27,7 @@ def coupe(df):
 
 def coupe_by_year(df, n_years=1):
     """
-        Permet de couper le dataset en deux dataset en fonction des années.
+        Coupe le dataset en deux dataset en fonction des années.
         Le n_years permet de choisir de combien de saison on veut que notre dataset de test se compose.
     """
     l = 1982 + np.random.choice(36, n_years, replace=False)
