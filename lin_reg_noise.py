@@ -14,12 +14,19 @@ df_scaled = fonctions_utiles.normalize_by_year(df)
 df_scaled = df_scaled.dropna(subset=['PER'])
 
 def reg_lin_year_noise(df_scaled, alpha, num_iters, year):
+    """
+        Prédit le score avec la méthode de la régression linéaire avec du
+        bruit pour les joueurs de l'année year.
+        Entrainé sur toutes les autres années.
+        alpha le learning rate pour la régression.
+        num_iters le nombre d'itérations de descente de gradient.
+    """
     test = df_scaled[df_scaled['Year'] == year]
     train = df_scaled[df_scaled['Year'] != year]
     Y_train = train['score MVP']
     Y_test = test['score MVP']
-    train_imp = train[['PTS','TOV','FTA','VORP','PER','BPM','OWS','BLK','WS','TEAM_CONF_RANK']]   
-    test_imp = test[['PTS','TOV','FTA','VORP','PER','BPM','BLK','OWS','WS','TEAM_CONF_RANK']]
+    train_imp = train[['PTS','BPM','VORP','PER','OWS','WS','TEAM_CONF_RANK']]   
+    test_imp = test[['PTS','BPM','VORP','PER','OWS','WS','TEAM_CONF_RANK']]
     train_noise, Y_train_noise = add_noise_mvp(train_imp, Y_train)
     theta, cost = linear_regression(train_noise, Y_train_noise, alpha, num_iters)
     one_column = np.ones((test_imp.shape[0],1))
@@ -29,3 +36,4 @@ def reg_lin_year_noise(df_scaled, alpha, num_iters, year):
     res ['score MVP'] = Y_test
     res ['pred']= y_pred
     return pd.DataFrame(res)
+
