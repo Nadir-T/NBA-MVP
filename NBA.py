@@ -10,46 +10,61 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 doss =  '/Users/Coni/Desktop/ENSAE/1A/Projet informatique/Data/'
 
-seasons_stats = pd.read_csv(doss + 'seasons_stats.csv')
-seasons_stats.dropna(subset = ['Player'], inplace = True)
-teams_stats = pd.read_csv(doss + 'teams_stats.csv')
+seasons_stats = pd.read_csv(doss + 'seasons_stats.csv')    # Base de statistiques sur les joueurs obtenu sur Kaggle
+teams_stats = pd.read_csv(doss + 'teams_stats.csv')        # Base de statistiques sur les équipes créée par nous même à l'aide de NBA_api
 
 def f_totale(seasons_stats):
-    seasons_stats.dropna(subset = ['Player'], inplace = True)
-    seasons_stats['classé MVP'] = 0
-    seasons_stats['score MVP'] = 0
-    seasons_stats["Player"] =  seasons_stats["Player"].apply(delete_star)
-    seasons_stats = add_all_scores(seasons_stats)
-    df = f_totale_team(seasons_stats, teams_stats)
+    """   
+        Créé la base sur laquelle nous allons travailler par la suite.
+    """                             
+    seasons_stats.dropna(subset = ['Player'], inplace = True)   # On enlève les lignes où le nom du joueur est manquant
+    seasons_stats['classé MVP'] = 0          # On rajoute une colonne pour indiquer si le joueur a été classé au MVP
+    seasons_stats['score MVP'] = 0           # Colonne pour le score au MVP obtenu par le joueur
+    seasons_stats["Player"] =  seasons_stats["Player"].apply(delete_star)   # On enlève l'étoile à la fin du nom des joueurs inscrits au Hall of Fame
+    seasons_stats = add_all_scores(seasons_stats)            # On met à jour pour tous les joueurs leur performance au MVP
+    df = f_totale_team(seasons_stats, teams_stats)           # On rajoute les colonnes relatives aux performances de l'équipe
     stats_clean = df
-    df['score MVP'] = df['score MVP'].apply(lambda x: x**(0.2))
-    df = df[['G','GS','MP','PER','TS%','PTS','BLK','TOV','STL','AST','TRB','FTA','FT%','eFG%','2P%','3P%','FG%','FG','VORP','BPM','WS','OWS','DWS','WS','WS/48', 'score MVP', 'TEAM_WINS', 'TEAM_LOSSES', 'TEAM_WIN_PCT', 'TEAM_CONF_RANK']]  
-    df.to_csv(doss + 'df.csv', index =False)
+    df['score MVP'] = df['score MVP'].apply(lambda x: x**(0.2))         # On transforme le score MVP, expliqué dans le rapport
+    df = df[['Player','Year','G','GS','MP','PER','TS%','PTS','BLK','TOV','STL','AST','TRB','FTA','FT%','eFG%','2P%','3P%','FG%','FG','VORP','BPM','OWS','DWS','WS','WS/48', 'score MVP', 'classé MVP', 'TEAM_WINS', 'TEAM_LOSSES', 'TEAM_WIN_PCT', 'TEAM_CONF_RANK']]     # On fait un premier tri sur les features pour enlever notamment les features très incomplètes ou celles qui ne donnent aucune information sur les performances   
+    df.to_csv(doss + 'df.csv', index =False)              
     stats_clean.to_csv(doss + 'stats_clean.csv', index = False)
     return df
     
 
 
 def add_score(player_name, year, score):
+    """
+        Ajoute le score du joueur en fonction de l'année
+    """
     seasons_stats.loc[(seasons_stats['Player']==player_name) & (seasons_stats['Year']==year), ['classé MVP']] = 1
     seasons_stats.loc[(seasons_stats['Player']==player_name) & (seasons_stats['Year']==year), ['score MVP']] = score
 
 
 def extract_mvp_y_by_y(year):
+    """
+        Exporte le dataframe comprenant les MVP sur une année donnée.
+        Permet surtout de vérifier si tous les joueurs classés au MVP ont bien été inscrits. 
+    """
     df = seasons_stats[(seasons_stats['Year']==year) & (seasons_stats['classé MVP']==1)]
     chemin = doss + 'mvp' + str(year) + '.csv'
     df.to_csv(chemin, index=False)
 
 
-def delete_star(name):
+def delete_star(name):  
+    """
+        Supprime l'étoile à la fin du nom des joueurs inscrits au Hall of Fame.
+    """
     if name[len(name)-1] == '*':
         name = name[0:len(name)-1]
     return name
 
-
-
-    
+  
 def add_all_scores(seasons_stats):
+    """
+        Ajoute le score des MVP pour chaque année.
+        Très laborieuse, mais scrapper des données sur internet était vraiment compliqué car le nom 
+        de certains joueurs n'est pas le même suivant les sources.
+    """
     ### 2016 - 2017 ###
     add_score('Russell Westbrook',2017,0.879)
     add_score('James Harden',2017,0.746)
