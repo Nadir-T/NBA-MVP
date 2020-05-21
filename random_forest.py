@@ -33,7 +33,7 @@ def rf_year(df_scaled, alpha, num_iters, year):
     train_imp = train[['PTS','BPM','VORP','PER','OWS','WS','TEAM_CONF_RANK']]   
     test_imp = test[['PTS','BPM','VORP','PER','OWS','WS','TEAM_CONF_RANK']]
     train_noise, Y_train_noise = add_noise_mvp(train_imp, Y_train)
-    regr = RandomForestRegressor(n_estimators= 1600, min_samples_split=10, min_samples_leaf= 4, max_features = 'auto', max_depth = 100, bootstrap=True, n_jobs= -1)
+    regr = RandomForestRegressor(n_estimators= 1300, min_samples_split=10, min_samples_leaf= 4, max_features = 'auto', max_depth = 4, n_jobs= -1)
     regr.fit(train_noise, Y_train_noise)
     #regr.fit(train_imp, Y_train)
     pred = regr.predict(test_imp)
