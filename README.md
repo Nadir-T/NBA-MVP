@@ -3,7 +3,7 @@
 ### Introduction
 
 This academic project aimed to predict NBA MVP using ML methods thanks to various statistics. But the goal were not to predict only the winner, but all the leaderboard. To did that, we used statictics of players between 1982 and 2017 and we added statictics of their team. \
-
+To get more details about this work : https://github.com/coni26/NBA-MVP/blob/master/README.md
 
 ### Method
 
